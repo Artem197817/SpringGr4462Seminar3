@@ -1,20 +1,8 @@
 package ru.geekbrain.example3sem3hometask.repository;
 
-import org.springframework.stereotype.Repository;
-import ru.geekbrain.example3sem3hometask.domain.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import ru.geekbrain.example3sem3hometask.domain.Users;
 
-import java.util.ArrayList;
-import java.util.List;
+public interface UserRepository extends JpaRepository<Users,Integer>{
 
-@Repository
-public class UserRepository {
-    private List<User> users = new ArrayList<>();
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
 }

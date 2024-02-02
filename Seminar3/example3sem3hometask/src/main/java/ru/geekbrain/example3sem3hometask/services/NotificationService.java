@@ -1,12 +1,14 @@
 package ru.geekbrain.example3sem3hometask.services;
 
+import lombok.Data;
 import org.springframework.stereotype.Service;
-import ru.geekbrain.example3sem3hometask.domain.User;
+import ru.geekbrain.example3sem3hometask.domain.Users;
 
 @Service
+@Data
 public class NotificationService {
 
-    public void notifyUser(User user) {
+    public void notifyUser(Users user) {
         System.out.println("A new user has been created: " + user.getName());
     }
 

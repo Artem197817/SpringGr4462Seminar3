@@ -1,8 +1,10 @@
 package ru.geekbrain.example3sem3hometask.services;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.geekbrain.example3sem3hometask.domain.User;
+import ru.geekbrain.example3sem3hometask.domain.Users;
 import ru.geekbrain.example3sem3hometask.repository.UserRepository;
 
 import java.util.Comparator;
@@ -10,36 +12,39 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Data
+@AllArgsConstructor
 public class DataProcessingService {
 
-    public UserRepository getRepository() {
-        return repository;
-    }
-    @Autowired
+
     private UserRepository repository;
 
 
-    public List<User> sortUsersByAge(List<User> users) {
-        return users.stream()
-                .sorted(Comparator.comparing(User::getAge))
+    public List<Users> findAll() {
+        return repository.findAll();
+    }
+
+    public List<Users> sortUsersByAge() {
+        return repository.findAll().stream()
+                .sorted(Comparator.comparing(Users::getAge))
                 .collect(Collectors.toList());
     }
 
-    public List<User> filterUsersByAge(List<User> users, int age) {
-        return users.stream()
+    public List<Users> filterUsersByAge(int age) {
+        return repository.findAll().stream()
                 .filter(user -> user.getAge() > age)
                 .collect(Collectors.toList());
     }
 
-    public double calculateAverageAge(List<User> users) {
-        return users.stream()
-                .mapToInt(User::getAge)
+    public double calculateAverageAge() {
+        return repository.findAll().stream()
+                .mapToInt(Users::getAge)
                 .average()
                 .orElse(0);
     }
 
-    public void  addUserToList(User user)
+    public void saveUser (Users user)
     {
-        repository.getUsers().add(user);
+        repository.save(user);
     }
 }

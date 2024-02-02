@@ -1,19 +1,24 @@
 package ru.geekbrain.example3sem3hometask.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.stereotype.Service;
+import ru.geekbrain.example3sem3hometask.domain.Users;
 
 @Service
+@Data
+@AllArgsConstructor
 public class RegistrationService {
 
-    public DataProcessingService getDataProcessingService() {
-        return dataProcessingService;
-    }
 
-    @Autowired
     private DataProcessingService dataProcessingService;
+    private UserService userService;
+    private  NotificationService notificationService;
 
-    //Поля UserService, NotificationService
 
-    //Метод processRegistration
+    public void processRegistration (String name, int age, String email){
+        Users user = userService.createUser(name,age,email);
+        dataProcessingService.saveUser(user);
+        notificationService.notifyUser(user);
+    }
 }
